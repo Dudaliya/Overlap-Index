@@ -105,7 +105,7 @@ sampling<-function(data,xlm,n,n1,n2,method,dname){
   hist(m1[,1],freq=FALSE,xlim=c(0,xlm),main =paste( "Means - Simulated data \n", dname),breaks=20,xlab="Bin Value",col=rgb(0, 0, 1, 0.5))
   hist(m2[,1],freq=FALSE,xlim=c(0,xlm),add=T,breaks=20,col=rgb(0, 1, 0, 0.5))
   
-  hist(m1[,2],freq=FALSE,main = paste("Overlaps - Simulated data \n",dname),breaks=10,xlab="Bin Value",col="red")
+  hist(m1[,2],freq=TRUE,main = paste("Overlaps - Simulated data \n",dname),breaks=10,xlab="Bin Value",col="red")
   list(original$overlap,sim_qtile=qtle)
  
 }
