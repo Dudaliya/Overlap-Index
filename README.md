@@ -48,6 +48,10 @@ library(readxl)
 'an example of calling sampling function'
 'sampling_out<-sampling(data,xlm=40,n=10,n1=10, n2=500,method=0,dname="Short Topic")'
 
+ library(plyr)
+library(dbplyr)
+library(tidyverse)
+library(readxl)
  
 sampling<-function(data,xlm,n,n1,n2,method,dname){
 'data - a set of data with two columns- Column 1 with the sample identifier, 1 or 2 and Column 2 with the values'
@@ -70,8 +74,8 @@ sampling<-function(data,xlm,n,n1,n2,method,dname){
   yval<-subset(m[,2],m[,1]==2)
   minm0<-apply(m, 2, min)[[2]]
   maxm0<-apply(m, 2, max)[[2]]
-  hist(xval,freq=FALSE,xlim=c(minm0,maxm0),main = paste("Histogram of " , dname),breaks=20,xlab="Bin Value",col=rgb(0, 0, 1, 0.5))
-  hist(yval,freq=FALSE,xlim=c(minm0,maxm0),add=T,breaks=20,col=rgb(0, 1, 0, 0.5))
+  hist(xval,freq=TRUE,xlim=c(minm0,maxm0),main = paste("Histogram of " , dname),breaks=20,xlab="Bin Value",col=rgb(0, 0, 1, 0.5))
+  hist(yval,freq=TRUE,xlim=c(minm0,maxm0),add=T,breaks=20,col=rgb(0, 1, 0, 0.5))
   
   m1<-matrix(0,nrow=n2,ncol=2)
   m2<-matrix(0,nrow=n2,ncol=2)
@@ -102,8 +106,8 @@ sampling<-function(data,xlm,n,n1,n2,method,dname){
     m1[j,2]<-dble$overlap
   }
   qtle<-quantile(m1[,2],probs=c(0.01,0.05,0.5,0.95,0.99))
-  hist(m1[,1],freq=FALSE,xlim=c(0,xlm),main =paste( "Means - Simulated data \n", dname),breaks=20,xlab="Bin Value",col=rgb(0, 0, 1, 0.5))
-  hist(m2[,1],freq=FALSE,xlim=c(0,xlm),add=T,breaks=20,col=rgb(0, 1, 0, 0.5))
+  hist(m1[,1],freq=TRUE,xlim=c(0,xlm),main =paste( "Means - Simulated data \n", dname),breaks=20,xlab="Bin Value",col=rgb(0, 0, 1, 0.5))
+  hist(m2[,1],freq=TRUE,xlim=c(0,xlm),add=T,breaks=20,col=rgb(0, 1, 0, 0.5))
   
   hist(m1[,2],freq=TRUE,main = paste("Overlaps - Simulated data \n",dname),breaks=10,xlab="Bin Value",col="red")
   list(original$overlap,sim_qtile=qtle)
@@ -215,4 +219,6 @@ binning<-function(m1){
   }
   list(y)
 } 
+
+
 
